@@ -19,23 +19,8 @@
    - SQLite & Room Database  
    - Using APIs & Retrofit for fetching data  
 
-### **5. Background Tasks & Services**  
-   - AsyncTask, Handlers, and WorkManager  
-   - Broadcast Receivers & Notifications  
-   - Services (Foreground & Background)  
-
-### **6. Integrating Third-Party Libraries & APIs**  
-   - Firebase (Authentication, Database, Analytics)  
-   - Google Maps, Location APIs  
-   - Payment gateway integration  
-
-### **7. Debugging & Performance Optimization**  
-   - Debugging using Logcat & Android Profiler  
-   - Memory & Battery optimization  
-   - App testing with JUnit & Espresso  
-
 ### **8. Publishing & Deployment**  
    - Generating APK/AAB files  
    - Google Play Store guidelines  
-   - Monetization (Ads, In-app purchases)  
+
 
