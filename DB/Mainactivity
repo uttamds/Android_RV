@@ -1,0 +1,58 @@
+package com.example.databaseapp;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText editTextName;
+    private Button buttonSave, buttonLoad;
+    private TextView textViewNames;
+    private DatabaseHelper databaseHelper;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Initialize UI components
+        editTextName = findViewById(R.id.editTextName);
+        buttonSave = findViewById(R.id.buttonSave);
+        buttonLoad = findViewById(R.id.buttonLoad);
+        textViewNames = findViewById(R.id.textViewNames);
+        
+        // Initialize database helper
+        databaseHelper = new DatabaseHelper(this);
+
+        // Save button click event
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editTextName.getText().toString().trim();
+                if (!name.isEmpty()) {
+                    databaseHelper.insertName(name);
+                    editTextName.setText(""); // Clear input
+                }
+            }
+        });
+
+        // Load button click event
+        buttonLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> names = databaseHelper.getAllNames();
+                textViewNames.setText("");
+                for (String name : names) {
+                    textViewNames.append(name + "\n");
+                }
+            }
+        });
+    }
+}
