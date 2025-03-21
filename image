@@ -1,0 +1,49 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ladybug" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Hello, this is Android"
+        android:textSize="18sp"
+        android:textColor="#000000" />
+        
+</RelativeLayout>
+
+
+package com.example.ladybugdemo;
+
+import android.os.Bundle;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Access the ImageView from the layout
+        ImageView imageView = findViewById(R.id.imageView);
+
+        // Set the static image (already specified in XML using android:src)
+        // Optionally, you can also programmatically change the image:
+        // imageView.setImageResource(R.drawable.ladybug);
+    }
+}
+
