@@ -1,0 +1,75 @@
+
+package com.example.api_demo;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+    private TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView);
+
+        fetchData();
+    }
+
+    private void fetchData() {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://dummyjson.com/users")
+                .get()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "API Request Failed: " + e.getMessage());
+                runOnUiThread(() -> textView.setText("API Request Failed"));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    Log.d(TAG, "API Response: " + responseData);
+
+                    // Parse JSON and display first user's name
+                    try {
+                        JSONObject json = new JSONObject(responseData);
+                        JSONArray usersArray = json.getJSONArray("users");
+                        JSONObject firstUser = usersArray.getJSONObject(0);
+                        String firstUserName = firstUser.getString("firstName");
+
+                        runOnUiThread(() -> textView.setText("First User: " + firstUserName));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "JSON Parsing Error: " + e.getMessage());
+                        runOnUiThread(() -> textView.setText("Error Parsing Data"));
+                    }
+                } else {
+                    Log.e(TAG, "API Response Not Successful");
+                    runOnUiThread(() -> textView.setText("API Response Not Successful"));
+                }
+            }
+        });
+    }
+}
